@@ -1,0 +1,72 @@
+class StudentResultManagementSystem:
+    def __init__(self):
+        self.students = {}
+
+    def add_student(self, roll_number, name):
+        if roll_number not in self.students:
+            self.students[roll_number] = {'Name': name, 'Scores': []}
+            print(f'Student {name} added successfully.')
+        else:
+            print(f'Student with Roll Number {roll_number} already exists.')
+
+    def add_score(self, roll_number, subject, score):
+        if roll_number in self.students:
+            self.students[roll_number]['Scores'].append({'Subject': subject, 'Score': score})
+            print(f'Score for {subject} added successfully.')
+        else:
+            print(f'Student with Roll Number {roll_number} does not exist.')
+
+    def view_student_details(self, roll_number):
+        if roll_number in self.students:
+            student = self.students[roll_number]
+            print(f'Roll Number: {roll_number}')
+            print(f'Name: {student["Name"]}')
+            if student['Scores']:
+                print('Scores:')
+                for score in student['Scores']:
+                    print(f'{score["Subject"]}: {score["Score"]}')
+            else:
+                print('No scores available.')
+        else:
+            print(f'Student with Roll Number {roll_number} does not exist.')
+
+    def list_all_students(self):
+        if self.students:
+            print('List of all students:')
+            for roll_number, student in self.students.items():
+                print(f'Roll Number: {roll_number}, Name: {student["Name"]}')
+        else:
+            print('No students in the system.')
+
+# Create an instance of the StudentResultManagementSystem
+result_system = StudentResultManagementSystem()
+
+while True:
+    print("\nStudent Result Management System Menu:")
+    print("1. Add Student")
+    print("2. Add Score")
+    print("3. View Student Details")
+    print("4. List All Students")
+    print("5. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == '1':
+        roll_number = input("Enter Roll Number: ")
+        name = input("Enter Name: ")
+        result_system.add_student(roll_number, name)
+    elif choice == '2':
+        roll_number = input("Enter Roll Number: ")
+        subject = input("Enter Subject: ")
+        score = input("Enter Score: ")
+        result_system.add_score(roll_number, subject, score)
+    elif choice == '3':
+        roll_number = input("Enter Roll Number: ")
+        result_system.view_student_details(roll_number)
+    elif choice == '4':
+        result_system.list_all_students()
+    elif choice == '5':
+        print("Exiting the program.")
+        break
+    else:
+        print("Invalid choice. Please try again.")
